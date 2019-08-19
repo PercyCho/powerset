@@ -6,7 +6,7 @@ In short, it is a game where two people duel to control the Power Bar and the bo
 
 ## Setup
 
-![Setup picture](setup.png)
+![Setup picture](setup.PNG)
 
 If you are playing the online Creator (default) version of PowerSet, great! The board should look like this. If you are playing PowerSet using a physical chess board, set up the board like this. There should be seven pawns the second row forward and two helpers in the first row on either side of the leader, but the helper closest to the power bar moved one space away from the leader. The leader should be boxed in. if you are playing on a physocal board, the pawns from a chess set can obviously be used as these pawns, but the helpers can be the two knights, bishops, or rooks. The choice doesn't affect gameplay. The leader in the center in the back of each side can be a king, queen, or any other special piece that is unlike any other peice on the board. Whatever you chose will have no special bonuses and will still be the leader, which is what I will be calling that piece for the rest of the document. The two pieces of different color at the far side of the board should be centered facing each other, with their respective color being behind them. If you are playing on a physical board, you can make the peice a knight, bishop, or rook. The collum they take up will be called the Power Bar.
 
@@ -14,7 +14,7 @@ If you are playing the online Creator (default) version of PowerSet, great! The 
 
 If you think the default setup is too boring, you can customize your 7 pawns, 2 helpers, and 1 leader in the 2 by 7 at the end of each side. No piece except the two centered and opposite colored pieces should be in the Power Bar collum, and no piece should  should go beyond the first two rows on the board. Additionally, the two helpers MUST be on differently colored squares. Here is a picture of a correct custom set board:
 
-![Custom Setup picture](custom-setup.png)
+![Custom Setup picture](custom-setup.PNG)
 
 ### Who moves first
 
@@ -26,7 +26,7 @@ Whoever was chosen to move first moves one of their pawns.
 
 The pawns in the front row ONE space forward or diagonally forward. As shown in the image below, the pawns can move their piece and attack the other player's pieces ONE space forward and diagonally forward. They cannot go through peices or stack on peices, and do not have any bonuses for their first move or being moved first.
 
-![Pawn Moving Chart](pawn-moving-chart.png)
+![Pawn Moving Chart](pawn-moving-chart.PNG)
 
 Here's a chart of it if the image fails to load:
 
@@ -52,7 +52,7 @@ In the move when one player takes abother player's piece, midgame starts. Right 
 
 The leader is not like any of the other pieces in the game. It does not interact with any other piece on the board, but is blocked by them. The only piece it can interact with is the other leader. The way the leader moves is like how a rook moves in chess. It cannot go diagonal, but it can go horrizontal or vertical in any direction and in as many spaces as it wants. Here is an image to show how it moves:
 
-![Leader Moving Chart](leader-moving-chart.png)
+![Leader Moving Chart](leader-moving-chart.PNG)
 
 Here's a chart if the image fails to load:
 
@@ -71,7 +71,7 @@ The only piece we could move before was the pawn, but now we can move the helper
 
 The helper is like a cross between a bishop and a knight. It can move or attck by going ONE, TWO, or THREE spaces diagonally in any direction over any piece. Below is a picture of how they move.
 
-![Helper Moving Chart](helper-moving-chart.png)
+![Helper Moving Chart](helper-moving-chart.PNG)
 
 Here's a chart of it if the image fails to load:
 

@@ -24,15 +24,15 @@ If you're playing on a physical chess board, no problem! Here's what you'll need
 
 Get your chess board and pick what color you want to be, and then set your color up the way it's set up in regular PowerSet. If you're the white side, the right pawn goes one away from the leader, and if you're the black side, the left pawn goes one away from the leader. And whatever side you are, put your peice and the enemy piece that are on the Power Bar so you have 7 out of the 8 slots of power. Here's a pic of a regular PowerSet chess board:
 
-![Setup picture](setup.png)
+![Setup picture](setup.PNG)
 
 And here's a pic of PowerSet Singleplayer set up for white:
 
-![PSSP White Setup](pssp-white-setup.png)
+![PSSP White Setup](pssp-white-setup.PNG)
 
 And a set up for black:
 
-![PSSP Black Setup](pssp-black-setup.png)
+![PSSP Black Setup](pssp-black-setup.PNG)
 
 After you pic what color you want to be, DO NOT set up the other side. This is singleplayer, we are playing against the game, not other people.
 
