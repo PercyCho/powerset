@@ -1,0 +1,356 @@
+body {
+	background-color: #caffcc;
+	margin: 0;
+	font-family: Viper;
+	animation-name: gameshift;
+	animation-duration: 53.5s;
+	animation-iteration-count: infinite;
+	animation-direction: alternate;
+}
+
+@keyframes gameshift {
+	from {background-color: #caffcc;}
+	to {background-color: #cafdff;}
+}
+
+a {
+	text-decoration: none;
+}
+
+@font-face {
+	font-family: Viper;
+	src: url(viper-squadron.solid.ttf);
+	font-weight: 200;
+}
+
+#powerbar {
+	border: outset 5px gray;
+	height: 480px;
+	width: 60px;
+	background-color: gray;
+}
+
+#board {
+	position: absolute;
+	border: outset 5px gray;
+	height: 480px;
+	width: 420px;
+	top: 0;
+	left: 70px;
+}
+
+#movinggrid {
+	display: none;
+	position: absolute;
+	height: 480px;
+	width: 420px;
+	top: 5px;
+	left: 75px;
+	user-select: none;
+	z-index: -1;
+}
+
+.movingsquare {
+	display: inline-block;
+	visibility: hidden;
+	background-color: red;
+	opacity: 0.4;
+	height: 60px;
+	width: 60px;
+	margin: -4px -4px 0 0;
+}
+
+.whitesquare {
+	background-color: #ffdbbb;
+	height: 60px;
+	width: 60px;
+}
+
+.blacksquare {
+	background-color: #866552;
+	height: 60px;
+	width: 60px;
+}
+
+.row1 {
+	margin-top: 4px;
+}
+
+.collum1 {
+}
+
+.collum2 {
+	margin: -480px 0 0 60px;
+}
+
+.collum3 {
+	margin: -480px 0 0 120px;
+}
+
+.collum4 {
+	margin: -480px 0 0 180px;
+}
+
+.collum5 {
+	margin: -480px 0 0 240px;
+}
+
+.collum6 {
+	margin: -480px 0 0 300px;
+}
+
+.collum7 {
+	margin: -480px 0 0 360px;
+}
+
+#gameinfo {
+	position: absolute;
+	border: ridge 10px gray;
+	border-left-width: 0;
+	height: 450px;
+	width: 190px;
+	top: 0;
+	left: 500px;
+	padding: 10px;
+}
+
+#infoblock {
+	display: block;
+}
+
+#settingsblock {
+	display: none;
+	font-family: sans-serif;
+}
+
+#changebox {
+	position: absolute;
+	top: 446px;
+	left: 186px;
+	border: solid 2px #232323;
+	background-color: gray;
+	background-image: url(../images/setting-icon.png);
+	background-size: 20px 20px;
+	width: 20px;
+	height: 20px;
+	cursor: pointer;
+}
+
+#usernametext {
+	line-height: 1.4;
+}
+
+#takenbox {
+	margin: 17px 10px 10px 10px;
+	padding: 6px 4px 4px 8px;
+	border: inset 4px gray;
+}
+
+#taken {
+	position: absolute;
+	top: 76px;
+	left: 90px;
+	font-family: Consolas;
+	font-size: 18px;
+	width: 90px;
+	text-align: right;
+}
+
+
+#timebox {
+	margin: 17px 10px 10px 10px;
+	padding: 6px 4px 4px 8px;
+	border: inset 4px gray;
+}
+
+#time {
+	position: absolute;
+	top: 127px;
+	left: 90px;
+	font-family: Consolas;
+	font-size: 18px;
+	width: 90px;
+	text-align: right;
+}
+
+#scorebox {
+	margin: 17px 10px 10px 10px;
+	text-align: center;
+	padding: 10px;
+	border: inset 4px gray;
+}
+
+#score {
+	padding-top: 8px;
+	font-family: Consolas;
+	font-size: 18px;
+}
+
+.pieces {
+	user-drag: none;
+	user-select: none;
+	position: absolute;
+	width: 60px;
+	height: 60px;
+	transition-duration: 0.13535s;
+}
+
+.opposingpieces {
+	opacity: 0;
+	pointer-events: none;
+	position: absolute;
+	width: 60px;
+	height: 60px;
+	transition-duration: 0.0535s;
+}
+
+#blackpowerbar {
+	top: 5px;
+	left: 5px;
+	width: 60px;
+	height: 0px;
+	background-color: black;
+}
+
+#blackpowerbararrow {
+	pointer-events: none;
+	top: 5px;
+	left: 5px;
+}
+
+#whitepowerbararrow {
+	pointer-events: none;
+	top: 65px;
+	left: 5px;
+}
+
+#whitepowerbar {
+	bottom: 5px;
+	left: 5px;
+	width: 60px;
+	height: 361px;
+	background-color: white;
+}
+
+#whitepawn1 {
+	top: 365px;
+	left: 75px;
+}
+
+#whitepawn2 {
+	top: 365px;
+	left: 135px;
+}
+
+#whitepawn3 {
+	top: 365px;
+	left: 195px;
+}
+
+#whitepawn4 {
+	top: 365px;
+	left: 255px;
+}
+
+#whitepawn5 {
+	top: 365px;
+	left: 315px;
+}
+
+#whitepawn6 {
+	top: 365px;
+	left: 375px;
+}
+
+#whitepawn7 {
+	top: 365px;
+	left: 435px;
+}
+
+#whitehelper1 {
+	top: 425px;
+	left: 135px;
+}
+
+#whiteleader {
+	top: 425px;
+	left: 255px;
+}
+
+#whitehelper2 {
+	top: 425px;
+	left: 315px;
+}
+
+#blackpawn1 {
+	top: 5px;
+	left: 75px;
+}
+
+#blackpawn2 {
+	top: 5px;
+	left: 135px;
+}
+
+#blackpawn3 {
+	top: 5px;
+	left: 195px;
+}
+
+#blackpawn4 {
+	top: 5px;
+	left: 255px;
+}
+
+#blackpawn5 {
+	top: 5px;
+	left: 315px;
+}
+
+#blackpawn6 {
+	top: 5px;
+	left: 375px;
+}
+
+#blackpawn7 {
+	top: 5px;
+	left: 435px;
+}
+#blackpawn8{
+	top:  5px;
+	left:  495px;
+}
+
+/*
+#blackhelper1 {
+	top: 5px;
+	left: 135px;
+}
+
+#blackleader {
+	top: 5px;
+	left: 255px;
+}
+
+#blackhelper2 {
+	top: 5px;
+	left: 315px;
+}
+haha that's for multiplayer
+*/
+
+#errormes {
+	display: none;
+	position: absolute;
+	width: 670px;
+	height: 20px;
+	font-family: Arial;
+	font-size: 14px;
+	background-color: white;
+	color: black;
+	border: solid 2px red;
+	padding: 2px 0 0 4px;
+	top: 0;
+	left: 0;
+}
+    

@@ -1,0 +1,216 @@
+body {
+	background-color: #e6f6ff;
+	margin: 0;
+	font-family: Viper;
+}
+
+a {
+	text-decoration: none;
+}
+
+@font-face {
+	font-family: Viper;
+	src: url(viper-squadron.solid.ttf);
+	font-weight: 200;
+}
+
+#backgroundfavicon {
+	position: fixed;
+	opacity: 0.535;
+	height: 100%;
+	left: 70%;
+	user-select: none;
+	z-index: 10;
+}
+
+#title {
+	font-size: 50px;
+	padding-top: 5px;
+	padding-left: 10px;
+	margin-bottom: -2px;
+	width: 740px;
+	height: 59px;
+	background-image: linear-gradient(to right, white, transparent); 
+}
+
+.titlecapital {
+	font-size: 75px;
+}
+
+#hiddentitle {
+	display: none;
+	color: blue;
+}
+
+#title:hover #hiddentitle {
+	display: inline;
+}
+
+#hiddentitle:hover {
+	display: inline;
+}
+
+#single-version {
+	font-family: Consolas;
+	font-size: 25px;
+}
+
+#multi-version {
+	font-family: Consolas;
+	font-size: 25px;
+}
+
+#titleline {
+	width: 100%;
+	height: 8px;
+	background-color: black;
+}
+
+#optionsbar {
+	border: ridge 5px gray;
+	width: 150px;
+	min-height: 45px;
+	border-width: 0 5px 5px 0;
+}
+.optionsbutton {
+	border: outset 5px #2C2C2C;
+	color: white;
+	background-color: #2C2C2C;
+	padding: 10px 10px 5px 10px;
+	width: 120px;
+	min-height: 25px;
+	text-align: center;
+	font-size: 20px;
+	user-select: none;
+}
+
+.optionsbutton:hover {
+	border-color: gray;
+	background-color: gray;
+}
+
+.optionsbutton:active {
+	border-color: red;
+	border-style: inset;
+	background-color: red;
+	font-size: 18px; 
+}
+
+#guidelink:hover {
+	background-color: #00bb00;
+	border-color: #00bb00;
+}
+
+#leaderboardlink:hover {
+	background-color: #cc5c00;
+	border-color: #cc5c00;
+}
+
+#leaderboardlink:active {
+	background-color: red;
+	border-color: red;
+	
+}
+
+#websitelink:hover {
+	background-image: url(bbho-icon.png);
+	background-size: 55px 55px;
+	background-repeat: no-repeat;
+	background-position: 110% 50%;
+}
+
+#discordlink:hover {
+	background-image: url(discord-icon.png);
+	background-size: 80px 80px;
+	background-repeat: no-repeat;
+	background-position: 165% 50%;
+}
+
+#safariwarningmessage {
+	font-family: "Arial";
+	margin: 10px;
+	width: 150px;
+	height: 150px;
+	padding: 5px;
+	border-radius: 4px;
+	background-color: white;
+	border: solid 2px black;
+}
+
+#hidewarningmessage {
+	color: blue;
+	cursor: pointer;
+}
+
+#multi-error {
+	position: absolute;
+	text-align: center;
+	font-size: 25px;
+	top: 150px;
+	left: 250px;
+}
+
+#single-error {
+	position: absolute;
+	text-align: center;
+	font-size: 25px;
+	top: 150px;
+	left: 250px;
+}
+
+#gamewindow {
+	position: absolute;
+	top: 100px;
+	left: 185px;
+	height: 490px;
+	width: 720px;
+	border-style: none;
+	z-index: 5;
+}
+
+#changelog {
+	position: absolute;
+	top: 100px;
+	left: 190px;
+	width: 750px;
+	font-family: Arial;
+	font-size: 25px;
+	border-style: none;
+	z-index: 5;
+}
+
+#changelogupdate {
+	width: 750px;
+	margin-bottom: 40px;
+}
+
+.changelogupdate {
+	margin-bottom: 40px;
+}
+
+#jsdisabled {
+	display: block;
+	background-color: lightblue;
+	z-index: 4;
+	font-family: Arial;
+	position: fixed;
+	font-size: 20px; 
+	top:-0.7%;
+	left: -0.8%;
+	width: 103%;
+	height: 103%;
+	padding-top: 12%;
+	text-align: center;
+}
+
+#seeeeecret {
+	display: block;
+	position: absolute;
+	height: 5px;
+	width: 5px;
+	background-color: red;
+	opacity: 0;
+	top: 590px;
+	left: 910px;
+	cursor: pointer;
+}
