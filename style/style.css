@@ -113,17 +113,17 @@ a {
 }
 
 #websitelink:hover {
-	background-image: url(bbho-icon.png);
+	background-image: url(../images/bbho-icon.png);
 	background-size: 55px 55px;
 	background-repeat: no-repeat;
 	background-position: 110% 50%;
 }
 
 #discordlink:hover {
-	background-image: url(discord-icon.png);
-	background-size: 80px 80px;
+	background-image: url(../images/discord-icon.png);
+	background-size: 60px 60px;
 	background-repeat: no-repeat;
-	background-position: 165% 50%;
+	background-position: 135% 50%;
 }
 
 #safariwarningmessage {
