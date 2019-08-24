@@ -4,8 +4,6 @@ The two markdown documents are both guides to PowerSet. The third is a document 
 
 READ THE MULTIPLAYER POWERSET GUIDE FIRST. Even if you are going to play the Singleplayer version, reading the first guide will clear things up on how the pieces move, what different game mechanics are, and more.
 
-If you don't have a markdown viewer, get [this extension](https://chrome.google.com/webstore/detail/markdown-viewer/ckkdlimhmcjmikdlpkmbgfkaikojcbjk) for free to read the rules. I will convert the markdown documents to html pages once all the spelling errors and unnecessary information is filtered out.
-
 [Powerset Multiplayer Guide](../PowerSet-Guide/PowerSet-guide.md)
 
 [Powerset Singleplayer Guide](../PowerSet-Guide/PowerSet-Singleplayer-guide.md)
