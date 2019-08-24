@@ -39,6 +39,7 @@ function darkMode() {
 	document.getElementById("bgchanger").innerHTML = "Light Mode";
 	document.getElementById("bgchanger").style.fontSize = "19px";
 	document.getElementById("multi-error").style.color = "white";
+	document.getElementById("changelog").style.color = "white";
 	document.getElementById("backgroundfavicon").style.zIndex = "4";
 	localStorage.setItem('mode', 'dark');
 	mode = localStorage.getItem('mode');
@@ -50,6 +51,7 @@ function lightMode() {//makes it light again lol
 	document.getElementById("bgchanger").innerHTML = "Dark Mode";
 	document.getElementById("bgchanger").style.fontSize = "20px";
 	document.getElementById("multi-error").style.color = "black";
+	document.getElementById("changelog").style.color = "black";
 	document.getElementById("backgroundfavicon").style.zIndex = "-1";
 	localStorage.setItem('mode', 'light');
 	mode = localStorage.getItem('mode');
