@@ -126,6 +126,13 @@ a {
 	background-position: 135% 50%;
 }
 
+#petrislink:hover {
+	background-image: url(../images/petris-icon.png);
+	background-size: 21.5px 31.5px;
+	background-repeat: no-repeat;
+	background-position: 95% 50%;
+}
+
 #safariwarningmessage {
 	font-family: "Arial";
 	margin: 10px;
