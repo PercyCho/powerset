@@ -57,6 +57,15 @@ function timer(){ //and thank you Chandu for the timer code on stack overflow. I
 	time.innerHTML = totalSeconds / 10 + "s";
 }
 
+if (navigator.appVersion.indexOf("Win")!=-1) { //this bit here is because the way windows formats their browser isn't the same way everyone else does???
+	document.getElementById("taken").style.top = "76px"; //I'm confused too. so here's some code to make it normal again.
+	document.getElementById("time").style.top = "127px";
+	document.getElementById("score").style.paddingTop = "8px";
+	for (i = 0; i < document.getElementsByClassName("movingsquare").length; i++) {
+		document.getElementsByClassName("movingsquare")[i].style.height = "60px";
+	}
+}
+
 function boxSwitch0() { //to switch to the options block
 	document.getElementById("infoblock").style.display = "none";
 	document.getElementById("settingsblock").style.display = "block";

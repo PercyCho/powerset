@@ -130,14 +130,14 @@ a {
 
 #changebox {
 	position: absolute;
-	top: 446px;
-	left: 186px;
+	top: 436px;
+	left: 176px;
 	border: solid 2px #232323;
 	background-color: gray;
 	background-image: url(../images/setting-icon.png);
-	background-size: 20px 20px;
-	width: 20px;
-	height: 20px;
+	background-size: 30px 30px;
+	width: 30px;
+	height: 30px;
 	cursor: pointer;
 }
 
