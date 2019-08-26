@@ -37,6 +37,7 @@ let opMove = [0,0,0,0,0,0,0,0]; //is each piece moving or not? Differentiate it 
 let scoreCalc; //the to-be calculated score
 let score; //the calculated score
 let pieceSpeed; //will figure out local storage so the options don't set after reload later. Must comment first.
+let pieceColor;
 
 /*
 function timer(){
@@ -68,46 +69,14 @@ function boxSwitch1() { //to switch back to the info block
 	document.getElementById("changebox").onclick = boxSwitch0;
 }
 
-function submitSettings() { //to sumbit the settings through a button click because that's probs the easiest. will make it auto save later
-	if (document.getElementById("piecespeed").value == 0) { //is it set to INSTANT MOVING?
-		for (i = 0; i < document.getElementsByClassName("pieces").length; i++) { //then let's change all the pieces with the "pieces" or "opposing pieces" class accordingly
-			document.getElementsByClassName("pieces")[i].style.transitionDuration = "0s";
-		}
-		for (i = 0; i < document.getElementsByClassName("opposingpieces").length; i++) {
-			document.getElementsByClassName("opposingpieces")[i].style.transitionDuration = "0.0005s";
-		}
-	} else if (document.getElementById("piecespeed").value == 1) { //Quick (default)
-		for (i = 0; i< document.getElementsByClassName("pieces").length; i++) {
-			document.getElementsByClassName("pieces")[i].style.transitionDuration = "0.13535s";
-		}
-		for (i = 0; i< document.getElementsByClassName("opposingpieces").length; i++) {
-			document.getElementsByClassName("opposingpieces")[i].style.transitionDuration = "0.13535s";
-		}
-	} else if (document.getElementById("piecespeed").value == 2) { //Medium
-		for (i = 0; i< document.getElementsByClassName("pieces").length; i++) {
-			document.getElementsByClassName("pieces")[i].style.transitionDuration = "0.3s";
-		}
-		for (i = 0; i< document.getElementsByClassName("opposingpieces").length; i++) {
-			document.getElementsByClassName("opposingpieces")[i].style.transitionDuration = "0.3s";
-		}
-	} else if (document.getElementById("piecespeed").value == 3) { //Long
-		for (i = 0; i< document.getElementsByClassName("pieces").length; i++) {
-			document.getElementsByClassName("pieces")[i].style.transitionDuration = "0.75s";
-		}
-		for (i = 0; i< document.getElementsByClassName("opposingpieces").length; i++) {
-			document.getElementsByClassName("opposingpieces")[i].style.transitionDuration = "0.75s";
-		}
-	}
-}
-
 function gridMaker() { //because we can't make matrices in js, w'll have to use arrayed arrays. ah well.
-	for (var i = 0; i < 8; i++) { //this loop makes the arrays in the array
+	for (i = 0; i < 8; i++) { //this loop makes the arrays in the array
 		grid[i] = [];
-		for (var j = 0; j < 7; j++) { //and this one sets the numbers for thiose arrays in the array. They are all set to 0 because there are no pieces on the board.
+		for (j = 0; j < 7; j++) { //and this one sets the numbers for thiose arrays in the array. They are all set to 0 because there are no pieces on the board.
 			grid[i][j] = 0;
 		}
 	}
-	for (var i1 = 0; i1 < 7; i1++){ //except for the pieces that are on the board. which we fill in.
+	for (i1 = 0; i1 < 7; i1++){ //except for the pieces that are on the board. which we fill in.
 		grid[6][i1] = 1;
 	}
 	grid[7][1] = 1; //bump
@@ -116,6 +85,190 @@ function gridMaker() { //because we can't make matrices in js, w'll have to use 
 }
 gridMaker(); //i was wondering for a full 30 mins why this function wasn't working until I realized I never called it.
 
+pieceSpeed = localStorage.getItem("pieceSpeed"); //But we don't want to be annoying, do we? so we're going to *save* the settings that way the user doesn't have to change them every time they refresh the page to play again
+pieceColor = localStorage.getItem("pieceColor"); //along with all of the other settings
+switch (pieceSpeed) { //so let's find what the speed was last time and set it this time
+    case '0': //Instant
+        for (i = 0; i < document.getElementsByClassName("pieces").length; i++) {
+			document.getElementsByClassName("pieces")[i].style.transitionDuration = "0s";
+		}
+		for (i = 0; i < document.getElementsByClassName("opposingpieces").length; i++) {
+			document.getElementsByClassName("opposingpieces")[i].style.transitionDuration = "0.0005s";
+		}
+		document.getElementById("piecespeed").value = '0'; //and set the little menu to that so you know that's the speed you're using
+		break;
+	case '1': //Quick
+		for (i = 0; i< document.getElementsByClassName("pieces").length; i++) {
+			document.getElementsByClassName("pieces")[i].style.transitionDuration = "0.13535s";
+		}
+		for (i = 0; i< document.getElementsByClassName("opposingpieces").length; i++) {
+			document.getElementsByClassName("opposingpieces")[i].style.transitionDuration = "0.13535s";
+		}
+		document.getElementById("piecespeed").value = '1';
+	    break;
+	case '2': //Medium
+		for (i = 0; i< document.getElementsByClassName("pieces").length; i++) {
+			document.getElementsByClassName("pieces")[i].style.transitionDuration = "0.3s";
+		}
+		for (i = 0; i< document.getElementsByClassName("opposingpieces").length; i++) {
+			document.getElementsByClassName("opposingpieces")[i].style.transitionDuration = "0.3s";
+		}
+		document.getElementById("piecespeed").value = '2';
+		break;
+	case '3': //Long
+		for (i = 0; i< document.getElementsByClassName("pieces").length; i++) {
+			document.getElementsByClassName("pieces")[i].style.transitionDuration = "0.75s";
+		}
+		for (i = 0; i< document.getElementsByClassName("opposingpieces").length; i++) {
+			document.getElementsByClassName("opposingpieces")[i].style.transitionDuration = "0.75s";
+		}
+		document.getElementById("piecespeed").value = '3';
+	    break;
+	default:
+	    break;
+}
+
+switch (pieceColor) { //whoops, I accidentally swapped the black and white conversions making these so I just changed the numbers because I was too lazy. anywho, here it is
+    case '1': //to black
+	    for (i = 0; i < document.getElementById("boardpieces").childElementCount; i++) {
+			if ((i === 7) || (i === 9)) { //this if changes the helpers to the other color
+			    document.getElementById("boardpieces").children[i].src = "images/black-helper-piece.png";
+			} else if (i === 8) { //and this one the leader
+			    document.getElementById("boardpieces").children[i].src = "images/black-leader-piece.png";
+			} else { //and this one the pawns
+			    document.getElementById("boardpieces").children[i].src = "images/pawn-opposing.png";
+			}
+		} //this for loop changes all the opposing pieces to the white color
+		for (i = 0; i < document.getElementById("opposingpieces").childElementCount; i++) {
+			document.getElementById("opposingpieces").children[i].src = "images/pawn-piece.png";
+		} //and this changes the powerbar
+		document.getElementById('blackpowerbar').style.backgroundColor = "white";
+		document.getElementById('blackpowerbararrow').src = "images/flipped-white-powerbar-arrow.png";
+		document.getElementById('whitepowerbararrow').src = "images/flipped-black-powerbar-arrow.png";
+		document.getElementById('whitepowerbar').style.backgroundColor = "black";
+		//now this changes the grid, so not only the pieces
+		grid[7][1] = 0;
+		grid[7][2] = 1;
+		grid[7][4] = 0;
+		grid[7][5] = 1;
+		document.getElementById('whitehelper1').style.left = "195px";
+		document.getElementById('whitehelper2').style.left = "375px";
+		document.getElementById("piececolor").value = '1';
+		break;
+	case '0': //to white
+	    for (i = 0; i < document.getElementById("boardpieces").childElementCount; i++) {
+			if ((i === 7) || (i === 9)) {
+			    document.getElementById("boardpieces").children[i].src = "images/helper-piece.png";
+			} else if (i === 8) {
+			    document.getElementById("boardpieces").children[i].src = "images/leader-piece.png";
+			} else {
+			    document.getElementById("boardpieces").children[i].src = "images/pawn-piece.png";
+			}
+		}
+		for (i = 0; i < document.getElementById("opposingpieces").childElementCount; i++) {
+			document.getElementById("opposingpieces").children[i].src = "images/pawn-opposing.png";
+		}
+		document.getElementById('blackpowerbar').style.backgroundColor = "black";
+		document.getElementById('blackpowerbararrow').src = "images/black-powerbar-arrow.png";
+		document.getElementById('whitepowerbararrow').src = "images/white-powerbar-arrow.png";
+		document.getElementById('whitepowerbar').style.backgroundColor = "white";
+		grid[7][1] = 1;
+		grid[7][2] = 0;
+		grid[7][4] = 1;
+		grid[7][5] = 0;
+		document.getElementById('whitehelper1').style.left = "135px";
+		document.getElementById('whitehelper2').style.left = "315px";
+		document.getElementById("piececolor").value = '0';
+		break;
+	default:
+	    break;
+}
+
+function submitSettings() { //to sumbit the settings through a button click because that's probs the easiest. will make it auto save later
+	if (document.getElementById("piecespeed").value === '0') { //is it set to INSTANT MOVING?
+		for (i = 0; i < document.getElementsByClassName("pieces").length; i++) { //then let's change all the pieces with the "pieces" or "opposing pieces" class accordingly
+			document.getElementsByClassName("pieces")[i].style.transitionDuration = "0s";
+		}
+		for (i = 0; i < document.getElementsByClassName("opposingpieces").length; i++) {
+			document.getElementsByClassName("opposingpieces")[i].style.transitionDuration = "0.0005s";
+		}
+		localStorage.setItem("pieceSpeed", '0');
+	} else if (document.getElementById("piecespeed").value === '1') { //Quick (default)
+		for (i = 0; i< document.getElementsByClassName("pieces").length; i++) {
+			document.getElementsByClassName("pieces")[i].style.transitionDuration = "0.13535s";
+		}
+		for (i = 0; i< document.getElementsByClassName("opposingpieces").length; i++) {
+			document.getElementsByClassName("opposingpieces")[i].style.transitionDuration = "0.13535s";
+		}
+		localStorage.setItem("pieceSpeed", '1');
+	} else if (document.getElementById("piecespeed").value === '2') { //Medium
+		for (i = 0; i< document.getElementsByClassName("pieces").length; i++) {
+			document.getElementsByClassName("pieces")[i].style.transitionDuration = "0.3s";
+		}
+		for (i = 0; i< document.getElementsByClassName("opposingpieces").length; i++) {
+			document.getElementsByClassName("opposingpieces")[i].style.transitionDuration = "0.3s";
+		}
+		localStorage.setItem("pieceSpeed", '2');
+	} else if (document.getElementById("piecespeed").value === '3') { //Long
+		for (i = 0; i< document.getElementsByClassName("pieces").length; i++) {
+			document.getElementsByClassName("pieces")[i].style.transitionDuration = "0.75s";
+		}
+		for (i = 0; i< document.getElementsByClassName("opposingpieces").length; i++) {
+			document.getElementsByClassName("opposingpieces")[i].style.transitionDuration = "0.75s";
+		}
+		localStorage.setItem("pieceSpeed", '3');
+	}
+	if (document.getElementById("piececolor").value === '1') {
+	    for (i = 0; i < document.getElementById("boardpieces").childElementCount; i++) {
+			if ((i === 7) || (i === 9)) {
+			    document.getElementById("boardpieces").children[i].src = "images/black-helper-piece.png";
+			} else if (i === 8) {
+			    document.getElementById("boardpieces").children[i].src = "images/black-leader-piece.png";
+			} else {
+			    document.getElementById("boardpieces").children[i].src = "images/pawn-opposing.png";
+			}
+		}
+		for (i = 0; i < document.getElementById("opposingpieces").childElementCount; i++) {
+			document.getElementById("opposingpieces").children[i].src = "images/pawn-piece.png";
+		}
+		document.getElementById('blackpowerbar').style.backgroundColor = "white";
+		document.getElementById('blackpowerbararrow').src = "images/flipped-white-powerbar-arrow.png";
+		document.getElementById('whitepowerbararrow').src = "images/flipped-black-powerbar-arrow.png";
+		document.getElementById('whitepowerbar').style.backgroundColor = "black";
+		grid[7][1] = 0;
+		grid[7][2] = 1;
+		grid[7][4] = 0;
+		grid[7][5] = 1;
+		document.getElementById('whitehelper1').style.left = "195px";
+		document.getElementById('whitehelper2').style.left = "375px";
+		localStorage.setItem("pieceColor", '1');
+	} else if (document.getElementById("piececolor").value === '0') {
+	    for (i = 0; i < document.getElementById("boardpieces").childElementCount; i++) {
+			if ((i === 7) || (i === 9)) {
+			    document.getElementById("boardpieces").children[i].src = "images/helper-piece.png";
+			} else if (i === 8) {
+			    document.getElementById("boardpieces").children[i].src = "images/leader-piece.png";
+			} else {
+			    document.getElementById("boardpieces").children[i].src = "images/pawn-piece.png";
+			}
+		}
+		for (i = 0; i < document.getElementById("opposingpieces").childElementCount; i++) {
+			document.getElementById("opposingpieces").children[i].src = "images/pawn-opposing.png";
+		}
+		document.getElementById('blackpowerbar').style.backgroundColor = "black";
+		document.getElementById('blackpowerbararrow').src = "images/black-powerbar-arrow.png";
+		document.getElementById('whitepowerbararrow').src = "images/white-powerbar-arrow.png";
+		document.getElementById('whitepowerbar').style.backgroundColor = "white";
+		grid[7][1] = 1;
+		grid[7][2] = 0;
+		grid[7][4] = 1;
+		grid[7][5] = 0;
+		document.getElementById('whitehelper1').style.left = "135px";
+		document.getElementById('whitehelper2').style.left = "315px";
+		localStorage.setItem("pieceColor", '0');
+	}
+}
+
 function diceRoll(lastRol) {//this is the "dice roll", which is how the computer will choose where the next opposing pawn will go
 	roll = Math.floor(Math.random() * 7); //idk if math.random is right, man. i'm writing this on a phone on a camping trip at 12:30 in the morning. ok my hand is getting tired from holding the phone up imma stop.
 	//turns out math.random is right, just gotta floor it so we get an integer
@@ -123,11 +276,16 @@ function diceRoll(lastRol) {//this is the "dice roll", which is how the computer
 		roll = Math.floor(Math.random() * 7); //wait what
 		if (roll == lastRoll) { //shit
 			roll = Math.floor(Math.random() * 7); //will fix once I find out why looping functions produces undefined results
-			return roll;
+			if (roll = lastRol) {
+			    roll = Math.floor(Math.random() * 7);
+			    return roll;
+			} else {
+			    return roll;
+			}
 		} else {
 			return roll;
 		}
-	}else{
+	} else {
 		return roll;
 	}
 	//and then we return the number for the game
@@ -151,7 +309,8 @@ function difficultySubmit() { //user clicks the sumbit button for the difficulty
 		document.getElementById("errormes").style.display = "block";
 		//and an error message in case anything goes wrong. The game will not start.
 		//you will see this error message copy-pasted alot in the code
-	} 
+	}
+	document.getElementById("piececolor").disabled = 'true';
 }
 
 function pieceClicked(pieceClicked, pieceTop, pieceLeft) {
