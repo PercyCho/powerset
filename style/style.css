@@ -9,6 +9,11 @@ a {
 }
 
 @font-face {
+    font-family: Consolas;
+    src: url(Consolas.ttf);
+}
+
+@font-face {
 	font-family: Viper;
 	src: url(viper-squadron.solid.ttf);
 	font-weight: 200;
@@ -27,7 +32,7 @@ a {
 	font-size: 50px;
 	padding-top: 5px;
 	padding-left: 10px;
-	margin-bottom: -2px;
+	margin-bottom: 0.5px;
 	width: 740px;
 	height: 59px;
 	background-image: linear-gradient(to right, white, transparent); 
