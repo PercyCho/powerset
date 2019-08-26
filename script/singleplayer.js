@@ -120,7 +120,8 @@ switch (pieceSpeed) { //so let's find what the speed was last time and set it th
 			document.getElementsByClassName("pieces")[i].style.transitionDuration = "0.3s";
 		}
 		for (i = 0; i< document.getElementsByClassName("opposingpieces").length; i++) {
-			document.getElementsByClassName("opposingpieces")[i].style.transitionDuration = "0.3s";
+			document.getElementsByClassName("opposingpieces")[i].style.transitionDuration = "0.6s";
+			document.getElementsByClassName("opposingpieces")[i].style.transitionTimingFunction = "cubic-bezier(1,0,0.3,0.15)";
 		}
 		document.getElementById("piecespeed").value = '2';
 		break;
@@ -129,7 +130,8 @@ switch (pieceSpeed) { //so let's find what the speed was last time and set it th
 			document.getElementsByClassName("pieces")[i].style.transitionDuration = "0.75s";
 		}
 		for (i = 0; i< document.getElementsByClassName("opposingpieces").length; i++) {
-			document.getElementsByClassName("opposingpieces")[i].style.transitionDuration = "0.75s";
+			document.getElementsByClassName("opposingpieces")[i].style.transitionDuration = "1.5s";
+			document.getElementsByClassName("opposingpieces")[i].style.transitionTimingFunction = "cubic-bezier(1,0,0.3,0.15)";
 		}
 		document.getElementById("piecespeed").value = '3';
 	    break;
@@ -215,15 +217,17 @@ function submitSettings() { //to sumbit the settings through a button click beca
 			document.getElementsByClassName("pieces")[i].style.transitionDuration = "0.3s";
 		}
 		for (i = 0; i< document.getElementsByClassName("opposingpieces").length; i++) {
-			document.getElementsByClassName("opposingpieces")[i].style.transitionDuration = "0.3s";
-		}
+			document.getElementsByClassName("opposingpieces")[i].style.transitionDuration = "0.6s";
+			document.getElementsByClassName("opposingpieces")[i].style.transitionTimingFunction = "cubic-bezier(1,0,0.3,0.15)"; //this is only for the medium and long speeds because people who are speedrunning won't actually use these speeds
+		}																													// and it's easier to see *you* move, and the *game* move
 		localStorage.setItem("pieceSpeed", '2');
 	} else if (document.getElementById("piecespeed").value === '3') { //Long
 		for (i = 0; i< document.getElementsByClassName("pieces").length; i++) {
 			document.getElementsByClassName("pieces")[i].style.transitionDuration = "0.75s";
 		}
 		for (i = 0; i< document.getElementsByClassName("opposingpieces").length; i++) {
-			document.getElementsByClassName("opposingpieces")[i].style.transitionDuration = "0.75s";
+			document.getElementsByClassName("opposingpieces")[i].style.transitionDuration = "1.5s";
+			document.getElementsByClassName("opposingpieces")[i].style.transitionTimingFunction = "cubic-bezier(1,0,0.3,0.15)";
 		}
 		localStorage.setItem("pieceSpeed", '3');
 	}
