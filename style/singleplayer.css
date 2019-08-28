@@ -44,6 +44,19 @@ a {
 	left: 70px;
 }
 
+#usernamewatermark {
+	position: absolute;
+	color: white;
+	opacity: 0.5;
+	font-size: 32px;
+	font-family: Arial; 
+	top: -1px; 
+	left: 74px;
+	z-index: 20;
+	text-shadow: 1px 1px black;
+	user-select: none;
+}
+
 #movinggrid {
 	display: none;
 	position: absolute;

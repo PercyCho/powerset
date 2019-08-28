@@ -11,6 +11,7 @@ let difficulty; //sets to the player's dificulty
 let lastRoll; //sets to the player's last roll
 let moveable = false; //set to false so the player doesn't move pieces before the game starts 
 let firstTaken = false; //sets to true once the first piece is taken. Is set to false now so the playey can't move their leader or helper until that happens 
+let oneTaken = false; //to make sure only one piece is taken each turn
 let firstMove = true; //
 let lastMove; //to remember the last roll so we can put it in the diceRoll function and get a different number
 let pieceName; //this is set here so it sets globally when set in playerPiece()
@@ -37,7 +38,12 @@ let opMove = [0,0,0,0,0,0,0,0]; //is each piece moving or not? Differentiate it 
 let scoreCalc; //the to-be calculated score
 let score; //the calculated score
 let pieceSpeed; //will figure out local storage so the options don't set after reload later. Must comment first.
-let pieceColor;
+let pieceColor; //to keep the color value
+let scoreKeep; //to keep the score so nO ONE HACKS IT
+let timeKeep; //"  "
+let username; //to keep to username
+let usernameCheck; //to check for any curse words
+let curseWords = ["fuck", "fck", "fuk", "fuc", "shit", "shat", "bitch", "b1tch", "btch", "bich", "cunt", "pussy", "nigger", "n1gger", "nigga", "n1gga", "ngger", "ngga", "penis", "pen is", "vagina"]; //bcause people like to curse
 
 /*
 function timer(){
@@ -195,6 +201,11 @@ switch (pieceColor) { //whoops, I accidentally swapped the black and white conve
 	    break;
 }
 
+if (localStorage.getItem("username").length > 0) {
+	username = localStorage.getItem("username");
+	document.getElementById("usernamewatermark").innerHTML = username;
+}
+
 function submitSettings() { //to sumbit the settings through a button click because that's probs the easiest. will make it auto save later
 	if (document.getElementById("piecespeed").value === '0') { //is it set to INSTANT MOVING?
 		for (i = 0; i < document.getElementsByClassName("pieces").length; i++) { //then let's change all the pieces with the "pieces" or "opposing pieces" class accordingly
@@ -202,6 +213,7 @@ function submitSettings() { //to sumbit the settings through a button click beca
 		}
 		for (i = 0; i < document.getElementsByClassName("opposingpieces").length; i++) {
 			document.getElementsByClassName("opposingpieces")[i].style.transitionDuration = "0.0005s";
+			document.getElementsByClassName("opposingpieces")[i].style.transitionTimingFunction = "ease";
 		}
 		localStorage.setItem("pieceSpeed", '0');
 	} else if (document.getElementById("piecespeed").value === '1') { //Quick (default)
@@ -210,6 +222,7 @@ function submitSettings() { //to sumbit the settings through a button click beca
 		}
 		for (i = 0; i< document.getElementsByClassName("opposingpieces").length; i++) {
 			document.getElementsByClassName("opposingpieces")[i].style.transitionDuration = "0.13535s";
+			document.getElementsByClassName("opposingpieces")[i].style.transitionTimingFunction = "ease";
 		}
 		localStorage.setItem("pieceSpeed", '1');
 	} else if (document.getElementById("piecespeed").value === '2') { //Medium
@@ -248,12 +261,14 @@ function submitSettings() { //to sumbit the settings through a button click beca
 		document.getElementById('blackpowerbararrow').src = "images/flipped-white-powerbar-arrow.png";
 		document.getElementById('whitepowerbararrow').src = "images/flipped-black-powerbar-arrow.png";
 		document.getElementById('whitepowerbar').style.backgroundColor = "black";
-		grid[7][1] = 0;
-		grid[7][2] = 1;
-		grid[7][4] = 0;
-		grid[7][5] = 1;
-		document.getElementById('whitehelper1').style.left = "195px";
-		document.getElementById('whitehelper2').style.left = "375px";
+		if (moveable === false) {
+			grid[7][1] = 0;
+			grid[7][2] = 1;
+			grid[7][4] = 0;
+			grid[7][5] = 1;
+			document.getElementById('whitehelper1').style.left = "195px";
+			document.getElementById('whitehelper2').style.left = "375px";
+		}
 		localStorage.setItem("pieceColor", '1');
 	} else if (document.getElementById("piececolor").value === '0') {
 	    for (i = 0; i < document.getElementById("boardpieces").childElementCount; i++) {
@@ -272,13 +287,46 @@ function submitSettings() { //to sumbit the settings through a button click beca
 		document.getElementById('blackpowerbararrow').src = "images/black-powerbar-arrow.png";
 		document.getElementById('whitepowerbararrow').src = "images/white-powerbar-arrow.png";
 		document.getElementById('whitepowerbar').style.backgroundColor = "white";
-		grid[7][1] = 1;
-		grid[7][2] = 0;
-		grid[7][4] = 1;
-		grid[7][5] = 0;
-		document.getElementById('whitehelper1').style.left = "135px";
-		document.getElementById('whitehelper2').style.left = "315px";
+		if (moveable === false) {
+			grid[7][1] = 1;
+			grid[7][2] = 0;
+			grid[7][4] = 1;
+			grid[7][5] = 0;
+			document.getElementById('whitehelper1').style.left = "135px";
+			document.getElementById('whitehelper2').style.left = "315px";
+		}
 		localStorage.setItem("pieceColor", '0');
+	}
+}
+
+function usernameSubmit() { //so you want a username, huh?
+	username = document.getElementById("username").value; //well we're going to have to check it
+	document.getElementById("usernamewatermark").style.left = "74px";
+	if (username === "reset") { //if you want to reset it, just type in reset
+		document.getElementById("usernamewatermark").innerHTML = ""; //and all will clear
+		document.getElementById("username").value = "";
+		localStorage.setItem("username", "");
+	} else if (username.length > 20) { //aaaand we also don't want it too long, like mmmmmmmmmmmmmmmmm because that goes off the board
+		alert("Username cannot be more than 16 characters");
+	} else { //and we don't want you cursing either
+		usernameCheck = username.toLowerCase();
+		for (i = 0; i < curseWords.length; i++){
+			if (usernameCheck.indexOf(curseWords[i])!=-1) {
+				alert("Your username cannot have curse words");
+				username = "";
+				usernameCheck = "";
+			} else {
+				username = username.replace(/</g, "&#60;"); //you wanna mess with the html? haha not gonna happen
+				let charStart = username.indexOf("^"); //easter eggg
+				if ((username.indexOf("^")!=-1)&&(username.indexOf("^", charStart + 1)!=-1)) {
+					username = username.replace("^", "『");
+					username = username.replace("^", "』");
+					document.getElementById("usernamewatermark").style.left = "62px";
+				}
+				document.getElementById("usernamewatermark").innerHTML = username; //sweet! now you have your username!
+				localStorage.setItem("username", username);
+			}
+		}
 	}
 }
 
@@ -324,6 +372,7 @@ function difficultySubmit() { //user clicks the sumbit button for the difficulty
 		//you will see this error message copy-pasted alot in the code
 	}
 	document.getElementById("piececolor").disabled = 'true';
+	document.getElementById("username").disabled = 'true';
 }
 
 function pieceClicked(pieceClicked, pieceTop, pieceLeft) {
@@ -537,20 +586,23 @@ function playerMove(row, col) { //thiz was easier than I thought it was going to
 		if (grid[rowSet][colSet] == 2) { //and then we check to see if we got any pieces!
 			var rowTop = rowSet * 60 + 5; //we get the top... (because that's all we need)
 			for (i = 0; i < opposingTop.length ; i++) { //and ruffle through all the opposing pieces...
-				if (rowTop == document.getElementById("opposingpieces").children[i].getBoundingClientRect().top){ //found a match?
+				if ((rowTop == document.getElementById("opposingpieces").children[i].getBoundingClientRect().top)&&(oneTaken === false)){ //found a match?
 					document.getElementById("opposingpieces").children[i].style.opacity = "0"; //hide it
 					document.getElementById("opposingpieces").children[i].style.top = "5px"; //and set it back to the beginning  
 					document.getElementById("opposingpieces").children[i].style.left = (i * 60 + 75) + "px";
 					opposingTop[i] = 5; //set the top back to 5
 					opMove[i] = 0; //and set it to 0 so it will not added to keep moving
 					++taken; //and then of course add the score
+					console.log("times");
 					document.getElementById("taken").innerHTML = taken;
+					oneTaken = true;
 					if (firstTaken == false){ //prety self explanatory 
 						firstTaken = true;
 					}
 				}
 			}
 		}
+		oneTaken = false;
 		grid[rowSet][colSet] = 1; //and then after all that
 		//we set that place 1
 		document.getElementById(pieceName).style.top = row + "px"; //there we go
@@ -716,6 +768,8 @@ function opPieceGrid() { //so I made it a function and placed right after the pl
 
 function endGame() { //looks like you lost the game, now - WAIT - I LOST THE GAAME! 
 	clearInterval(timerVar); //we stop the timer
+	endTime = document.getElementById("time").innerHTML;
+	timeKeep = setInterval(timeKeeper, 10);
 	scoreCalc = parseInt(document.getElementById("taken").innerHTML);
 	if (difficulty == 0) { //and calculate the score based on the difficulty
 		score = scoreCalc * 0;
@@ -725,8 +779,19 @@ function endGame() { //looks like you lost the game, now - WAIT - I LOST THE GAA
 		score = scoreCalc * 150;
 		//will make score calculation for creator level more percise
 	}
+	document.getElementById("usernamewatermark").style.transitionDuration = "2s";
+	document.getElementById("usernamewatermark").style.opacity = "0.6";
 	document.getElementById("score").innerHTML = score; //and update the score!
+	scoreKeep = setInterval(scoreKeeper, 10);
 	document.getElementById("movinggrid").style.zIndex = "5"; //and make the board unmoveable because you lost
 	document.getElementById("movinggrid").style.display = "inline-block";
+}
+
+function timeKeeper() {
+	document.getElementById("time").innerHTML = endTime;
+}
+
+function scoreKeeper() {
+	document.getElementById("score").innerHTML = score;
 }
 //over vacation, I wrote 410 lines of code on a phone over the course of a week with little help from the internet and alot of time. Just a landmark to say that if you really put your mind to something, you can do it.

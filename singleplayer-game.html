@@ -9,6 +9,7 @@
 		<link rel="stylesheet" href="style/singleplayer.css" type="text/css" media="all"/>
 	</head>
 	<body>
+		<i><div id="usernamewatermark"></div></i>
 		<div id="powerbar">
 			<div>
 				<div class="whitesquare"></div>
@@ -202,7 +203,7 @@
 		</div>
 		<div id="gameinfo">
 			<div id="infoblock">
-				<div id="usernametext" title="not yet :/">Username<input id="username" type="text" style="width: 125px;" disabled><input id="usernamesubmit" type="button" value="Submit"></div>
+				<div id="usernametext">Username<input id="username" type="text" style="width: 125px;" ><input id="usernamesubmit" onclick="usernameSubmit()" type="button" value="Submit"></div>
 				<div id="takenbox">Taken<b><div id="taken">0</div></b></div>
 				<div id="timebox">Time<b><div id="time">0</div></b></div>
 				<div id="scorebox">Score<b><div id="score">0</div></b></div>
