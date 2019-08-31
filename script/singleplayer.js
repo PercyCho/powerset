@@ -372,7 +372,8 @@ function difficultySubmit() { //user clicks the sumbit button for the difficulty
 		//you will see this error message copy-pasted alot in the code
 	}
 	document.getElementById("piececolor").disabled = 'true';
-	document.getElementById("username").disabled = 'true';
+	//document.getElementById("username").disabled = 'true';
+	//bad decision on my part to make the username disabled
 }
 
 function pieceClicked(pieceClicked, pieceTop, pieceLeft) {
