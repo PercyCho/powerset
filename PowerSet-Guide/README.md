@@ -2,7 +2,7 @@
 
 The two markdown documents are both guides to PowerSet. The third is a document of strategies and other information for PowerSet Singleplayer.
 
-READ THE MULTIPLAYER POWERSET GUIDE FIRST. Even if you are going to play the Singleplayer version, reading the first guide will clear things up on how the pieces move, what different game mechanics are, and more. [Read this guide if you are using a computer to play.](.../PowerSet-Guide/PowerSet-Computer-guide.md)
+READ THE MULTIPLAYER POWERSET GUIDE FIRST. Even if you are going to play the Singleplayer version, reading the first guide will clear things up on how the pieces move, what different game mechanics are, and more. [Read this guide if you are using a computer to play.](../PowerSet-Guide/PowerSet-Computer-guide.md)
 
 [Powerset Multiplayer Guide](../PowerSet-Guide/PowerSet-guide.md)
 
