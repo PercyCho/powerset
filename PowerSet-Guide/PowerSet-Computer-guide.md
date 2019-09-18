@@ -2,6 +2,12 @@
 
 Because most of the people reading this will be paying PowerSet on a computer, I should tell you how to play it on there. It's quite easy, but some people might not see it straight-forward.
 
+## Username
+
+In this game, you can change your username to anything you want, as long as it's under 20 characters and doesn't have any curse words. Once you've made it, hit "Submit". That should make a watermark appear in the top-left corner that says the username you made. This watermark is so when you screenshot your score, someone else doesn't steal it and say it's theirs.
+
+(Psssst! Here's a cool little trick you can do with the username! If you put carets (^) around your username ^like this^ a secret feature will appear!)
+
 ## Game Settings
 
 At the bottom left corner of the game window, there should be a little gear icon. Click it, and you'll find the info block disapears, and shows the settings instead. In order to go back to the info block which shows the scores, times, and pieces taken, click the same gear at the bottom of the page.
