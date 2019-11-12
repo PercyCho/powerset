@@ -50,7 +50,7 @@ function darkMode() {
 
 function lightMode() {//makes it light again lol
 	document.body.style.backgroundColor = "#e6f6ff";
-	themeColor.setAttribute("content", "#e6f6ff");
+	themeColor.setAttribute("content", "#b3e3ff");
 	document.getElementById("bgchanger").onclick = darkMode;
 	document.getElementById("bgchanger").innerHTML = "Dark Mode";
 	document.getElementById("bgchanger").style.fontSize = "20px";
