@@ -11,10 +11,6 @@ function sleep(milliseconds) {
 document.getElementById("jsdisabled").style.display = "none";
 document.getElementById("single-error").style.display = "none";
 
-if (navigator.appVersion.indexOf("Win")!=-1) {
-	document.getElementById("title").style.marginBottom = "-2px";
-}
-
 var ua = navigator.userAgent.toLowerCase(); 
 if (ua.indexOf('safari') != -1) { 
 	if (ua.indexOf('chrome') > -1) {
@@ -28,6 +24,8 @@ function hideWarningMessage() {
 	document.getElementById("safariwarningmessage").style.display = "none";
 }
 
+var themeColor = document.querySelector('meta[name="theme-color"]');
+
 let mode;
 mode = localStorage.getItem('mode'); //it first gets the previous mode
 
@@ -39,6 +37,7 @@ if (mode === 'light'){ //and checks to see if it was previously light and dark, 
 
 function darkMode() {
 	document.body.style.backgroundColor = "black";
+	themeColor.setAttribute("content", "#000000");
 	document.getElementById("bgchanger").onclick = lightMode;
 	document.getElementById("bgchanger").innerHTML = "Light Mode";
 	document.getElementById("bgchanger").style.fontSize = "19px";
@@ -51,6 +50,7 @@ function darkMode() {
 
 function lightMode() {//makes it light again lol
 	document.body.style.backgroundColor = "#e6f6ff";
+	themeColor.setAttribute("content", "#e6f6ff");
 	document.getElementById("bgchanger").onclick = darkMode;
 	document.getElementById("bgchanger").innerHTML = "Dark Mode";
 	document.getElementById("bgchanger").style.fontSize = "20px";
