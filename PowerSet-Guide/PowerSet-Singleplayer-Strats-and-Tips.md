@@ -4,13 +4,13 @@ This markdown document is going to explain more information about PowerSet Singl
 
 ## Opposing Piece Positions
 
-When playing a few rounds of PSSP (PoweSet Singleplayer), I realized some of the opposing pieces formed shapes on the board. Here are some of them from most common to most rare.
+When playing a few rounds of PSSP (PowerSet Singleplayer), I realized some of the opposing pieces formed shapes on the board. Here are some of them from most common to most rare.
 
 When three opposing pieces form a small arrow pointing left or right, that is called a **switch**. It is probably the most common and messes up people's gameplay the most:
 
 ![Switch](switch.PNG)
 
-When three or more opposing pieces form a diagonal line on the board which goes to the left or the right, it's called exactally what it is, a **line**.
+When three or more opposing pieces form a diagonal line on the board which goes to the left or the right, it's called exactly what it is, a **line**.
 
 ![Line](line.PNG)
 
