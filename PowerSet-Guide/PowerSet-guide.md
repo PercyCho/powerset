@@ -67,9 +67,9 @@ Here's a chart if the image fails to load:
 | 7 | . | . | . | ↓ | . | . | . |
 | 8 | . | . | . | ↓ | . | . | . |
 
-The only piece we could move before was the pawn, but now we can move the helper. Once that attackung player takes the other player's piece and decides of they want to move their leader or not, the other player goes. The other player can now, if they want to, move their helper.
+The only piece we could move before was the pawn, but now we can move the helper. Once that attacking player takes the other player's piece and decides of they want to move their leader or not, the other player goes. The other player can now, if they want to, move their helper.
 
-The helper is like a cross between a bishop and a knight. It can move or attck by going ONE, TWO, or THREE spaces diagonally in any direction over any piece. Below is a picture of how they move.
+The helper is like a cross between a bishop and a knight. It can move or attack by going ONE, TWO, or THREE spaces diagonally in any direction over any piece. Below is a picture of how they move.
 
 ![Helper Moving Chart](helper-moving-chart.PNG)
 
