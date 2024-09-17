@@ -12,14 +12,14 @@
 		<i><div id="usernamewatermark"></div></i>
 		<div id="powerbar">
 			<div>
-				<div class="whitesquare"></div>
-				<div class="blacksquare"></div>
-				<div class="whitesquare"></div>
-				<div class="blacksquare"></div>
-				<div class="whitesquare"></div>
-				<div class="blacksquare"></div>
-				<div class="whitesquare"></div>
-				<div class="blacksquare"></div>
+				<div class="whitesquare">80</div>
+				<div class="blacksquare">70</div>
+				<div class="whitesquare">60</div>
+				<div class="blacksquare">50</div>
+				<div class="whitesquare">40</div>
+				<div class="blacksquare">30</div>
+				<div class="whitesquare">20</div>
+				<div class="blacksquare">10</div>
 			</div>
 		</div>
 		<div id="movinggrid">
@@ -203,23 +203,24 @@
 		</div>
 		<div id="gameinfo">
 			<div id="infoblock">
-				<div id="usernametext">Username<input id="username" type="text" style="width: 125px;" ><input id="usernamesubmit" onclick="usernameSubmit()" type="button" value="Submit"></div>
+				<div id="usernametext">Username<input id="username" type="text" style="width: 120px;"><input id="usernamesubmit" onclick="usernameSubmit()" type="button" value="Submit"></div>
 				<div id="takenbox">Taken<b><div id="taken">0</div></b></div>
 				<div id="timebox">Time<b><div id="time">0</div></b></div>
 				<div id="scorebox">Score<b><div id="score">0</div></b></div>
+				<div id="hiscrbox">HiScr<b><div id="highscore">0</div></b></div>
 				<div id="difficultybox">
 					<br>
 					<div>Choose a Difficulty<br><br></div>
-					<input type="radio" id="difficulty2" disabled>
+					<input type="radio" id="difficulty2" onclick="difficultyChanger(2)" disabled>
 					<label title="not yet :/">Creator</label>
 					<br>
 					<br>
-					<input type="radio" id="difficulty1" checked>
+					<input type="radio" id="difficulty1" onclick="difficultyChanger(1)" checked>
 					<label>Relative</label>
 					<br>
 					<br>
-					<input type="radio" id="difficulty0" disabled>
-					<label title="not yet :/">Mappist</label>
+					<input type="radio" id="difficulty0" onclick="difficultyChanger(0)">
+					<label title="2021 update???">Mappist</label>
 					<br>
 					<br>
 					<input type="button" value="Start!" id="difficultysubmit" onclick="difficultySubmit()" style="width:60.205px; height:27.5px; font-size:17px;">
@@ -241,7 +242,7 @@
 					  <option value="3">Long</option>
 					</select>
 				</div>
-				<input type="button" value="Sumbit Settings" style="margin-top: 20px" onclick="submitSettings()">
+				<input type="button" value="Submit Settings" style="margin-top: 20px" onclick="submitSettings()">
 			</div>
 			<div id="changebox" onclick="boxSwitch0()"></div>
 		</div>
@@ -249,4 +250,3 @@
 	</body>
 </html>
 <script type="text/javascript" src="script/singleplayer.js"></script>
-    
