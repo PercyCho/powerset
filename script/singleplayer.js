@@ -1,10 +1,12 @@
-//Before we get fucking started, I'm just going to say that this document will be a few kilobytes bigger due to all of the COMMENTS I make on EVERYTHING.
+//Before we get started, I'm just going to say that this document will be a few kilobytes bigger due to all of the COMMENTS I make on EVERYTHING.
 //and they aren't just for other people, they're for ME. Because I need to know what the SHIT I'm writing half the time.
 //You might see words after $dollar signs sometimes, and that's so I can do Ctrl + F and get to where that variable changes, or is announced, etc. Buuut I might not use it. You never know.
 //And I know I said on the discord server I don't encourage cursing, but sometimes **you gotta curse anyways**
 //ok let's get started
 
 let taken = 0; //var to show how many pieces were taken
+let rowTaken = 0; //will be multiplied by 10 to equal the score
+let rowAverage = 0;
 let grid = []; //for the moving grid
 let roll; //var for the "dice roll" which determines the opposing piece collum 
 let difficulty; //sets to the player's dificulty
@@ -12,7 +14,7 @@ let lastRoll; //sets to the player's last roll
 let moveable = false; //set to false so the player doesn't move pieces before the game starts 
 let firstTaken = false; //sets to true once the first piece is taken. Is set to false now so the playey can't move their leader or helper until that happens 
 let oneTaken = false; //to make sure only one piece is taken each turn
-let firstMove = true; //
+let firstMove = true; //has the first move been made?
 let lastMove; //to remember the last roll so we can put it in the diceRoll function and get a different number
 let pieceName; //this is set here so it sets globally when set in playerPiece()
 let whitePiece; //this gets the information about the piece
@@ -21,11 +23,11 @@ let whitePieceLeft; //the collum number from 0 to 6
 let timerVar; //var to store the timer function so we can stop it
 let wpt; //whitePieceTop 
 let wpl; //whitePieceLeft
-let powerBar = 0; //to control the height on the power  ar
+let powerBar = 0; //to control the height on the power bar
 let leaderSpot; //where's the leader?
 let leaderTaker; //where's the leader's killer?
 let gridRow; //finds the row or
-let mappistMode = true; //gets set to true and false for the mappist mode because the opposing pawns move every other turn
+let mappistMove = true; //gets set to true and false for the mappist mode because the opposing pawns move every other turn
 let row; //row
 let col; //collum
 let opposingFirst = true; //the opposing pieces first actual move
@@ -35,8 +37,10 @@ let opLeft; //doesn't have to be set to 0 because it's not used as a function be
 let whiteMoving = [0,0,""]; //the small array to tell the opposing pieces what *just* moved and has not been updated on the board yet.
 let opposingTop = [5,5,5,5,5,5,5,5]; //how far each piece is from the top in PIXELS
 let opMove = [0,0,0,0,0,0,0,0]; //is each piece moving or not? Differentiate it here, 0 is not moving, 1 means it is moving
+let leaderAlive = true;
 let scoreCalc; //the to-be calculated score
-let score; //the calculated score
+let score = 0; //the calculated score
+let highscore = 0; //local data will fill this in
 let pieceSpeed; //will figure out local storage so the options don't set after reload later. Must comment first.
 let pieceColor; //to keep the color value
 let scoreKeep; //to keep the score so nO ONE HACKS IT
@@ -44,6 +48,7 @@ let timeKeep; //"  "
 let username; //to keep to username
 let usernameCheck; //to check for any curse words
 let curseWords = ["fuck", "fck", "fuk", "fuc", "shit", "shat", "bitch", "b1tch", "btch", "bich", "cunt", "pussy", "nigger", "n1gger", "nigga", "n1gga", "ngger", "ngga", "penis", "pen is", "vagina"]; //bcause people like to curse
+let youvefinishedthegamesocongrats = false;
 
 /*
 function timer(){
@@ -60,7 +65,11 @@ let totalSeconds = 0; //the countuper
 
 function timer(){ //and thank you Chandu for the timer code on stack overflow. I modded it to fit my purposes
 	totalSeconds += 1;
-	time.innerHTML = totalSeconds / 10 + "s";
+	if (Number.isInteger(totalSeconds / 10)) {
+		time.innerHTML = totalSeconds / 10 + ".0s"
+	} else {
+		time.innerHTML = totalSeconds / 10 + "s";
+	}
 }
 
 if (navigator.appVersion.indexOf("Win")!=-1) { //this bit here is because the way windows formats their browser isn't the same way everyone else does???
@@ -204,6 +213,21 @@ switch (pieceColor) { //whoops, I accidentally swapped the black and white conve
 if (localStorage.getItem("username").length > 0) {
 	username = localStorage.getItem("username");
 	document.getElementById("usernamewatermark").innerHTML = username;
+	if(username.indexOf("『") == 0){
+		document.getElementById("usernamewatermark").style.left = "62px";
+	}
+}
+
+if (localStorage.getItem("highscore").length > 0) {
+	highscore = localStorage.getItem("highscore");
+	document.getElementById("highscore").innerHTML = highscore;
+	if((highscore >= 900)&&(highscore < 1500)){ 
+		document.getElementById("highscore").style.textShadow = "0 0 4px #d78456";
+	} else if((highscore >= 1500)&&(highscore < 2000)){
+		document.getElementById("highscore").style.textShadow = "0 0 4px #ffd700";
+	} else if(highscore >= 2000){
+		document.getElementById("highscore").style.textShadow = "0 0 4px #00ffff";
+	}
 }
 
 function submitSettings() { //to sumbit the settings through a button click because that's probs the easiest. will make it auto save later
@@ -330,8 +354,8 @@ function usernameSubmit() { //so you want a username, huh?
 	}
 }
 
-function diceRoll(lastRol) {//this is the "dice roll", which is how the computer will choose where the next opposing pawn will go
-	roll = Math.floor(Math.random() * 7); //idk if math.random is right, man. i'm writing this on a phone on a camping trip at 12:30 in the morning. ok my hand is getting tired from holding the phone up imma stop.
+function diceRollOld(lastRol) {//this is the "dice roll", which is how the computer will choose where the next opposing pawn will go
+	roll = Math.floor(Math.random() * 6); //idk if math.random is right, man. i'm writing this on a phone on a camping trip at 12:30 in the morning. ok my hand is getting tired from holding the phone up imma stop.
 	//turns out math.random is right, just gotta floor it so we get an integer
 	if (roll == lastRol) { //because you can't place two opposing pawns right after each other, this tells the computer to roll again if that happens.
 		roll = Math.floor(Math.random() * 7); //wait what
@@ -352,19 +376,46 @@ function diceRoll(lastRol) {//this is the "dice roll", which is how the computer
 	//and then we return the number for the game
 } //haha! this code I wrote on a phone at 1 in the morning works!! (of course with some small bugs)
 
+function diceRoll(lastRol) { //LOL 2023 me here, this was the easiest fix ever, I'm keeping the old function because of the funny comments though
+	roll = Math.floor(Math.random() * 6);
+	if(roll >= lastRol){
+		roll++;
+	}
+	return roll;
+}
+
+function difficultyChanger(diff){ //because the radio buttons aren't a form i have to switch them myself
+	if (diff == 0){ //if they choose mappist (lol) uncheck all the other ones 
+		document.getElementById("difficulty1").checked = false;
+		document.getElementById("difficulty2").checked = false;
+	} else if (diff == 1){ //same with relative
+		document.getElementById("difficulty0").checked = false;
+		document.getElementById("difficulty2").checked = false;
+	} else if (diff == 2){
+		document.getElementById("difficulty0").checked = false;
+		document.getElementById("difficulty1").checked = false;
+	}
+}
+
 function difficultySubmit() { //user clicks the sumbit button for the difficulty
-	if (document.getElementById("difficulty2").checked === true) { 
+	if ((youvefinishedthegamesocongrats === true)||(firstMove === false)){
+		window.location.reload(); //for replaying the game
+	}else if (document.getElementById("difficulty2").checked === true) { 
 		difficulty = 2; //sets it to who ever is checked
-		document.getElementById("difficultysubmit").disabled = "true";
+		document.getElementById("difficultysubmit").value = "Again!";
 		//and disables the sumbit box to prevent spamming and errors
 		singleplayerStart(); //and then starts the game
 	}else if (document.getElementById("difficulty1").checked === true) {
 		difficulty = 1;
-		document.getElementById("difficultysubmit").disabled = "true";
+		document.getElementById("difficultysubmit").value = "Again!";
+		document.getElementById("difficulty0").disabled = "true";
+		document.getElementById("difficulty2").disabled = "true";
 		singleplayerStart();
 	}else if (document.getElementById("difficulty0").checked === true) {
 		difficulty = 0; 
-		document.getElementById("difficultysubmit").disabled = "true";
+		document.getElementById("difficultysubmit").value = "Again!";
+		document.getElementById("difficulty1").disabled = "true";
+		document.getElementById("difficulty2").disabled = "true";
 		singleplayerStart();
 	}else{
 		document.getElementById("errormes").style.display = "block";
@@ -372,8 +423,7 @@ function difficultySubmit() { //user clicks the sumbit button for the difficulty
 		//you will see this error message copy-pasted alot in the code
 	}
 	document.getElementById("piececolor").disabled = 'true';
-	//document.getElementById("username").disabled = 'true';
-	//bad decision on my part to make the username disabled
+	document.getElementById("username").disabled = 'true';
 }
 
 function pieceClicked(pieceClicked, pieceTop, pieceLeft) {
@@ -406,15 +456,15 @@ function playerPiece(piece, pieceName) { //FUCKING HELL this was annoying. but I
 		document.getElementById("movinggrid").children[whitePieceTop].children[whitePieceLeft].style.visibility = "visible";
 		gridRow = document.getElementById(gridRowId); //then we get the grid rowww
 		if ((grid[whitePieceTop1][whitePieceLeft1] == 0)||(grid[whitePieceTop1][whitePieceLeft1] == 2)){ //and see if there's another piece thereee (adding this in was easier then I though, but I don't wanna jinx it.)
-			if (whitePieceLeft1 > -1){ //and then see if it's on the sides of the board (so we don't display it and get an error(even though it does anyway))
-				gridRow.children[whitePieceLeft1].style.visibility = "visible";
+			if ((whitePieceLeft1 > -1) && leaderAlive){ //and then see if it's on the sides of the board (so we don't display it and get an error(even though it does anyway))
+				gridRow.children[whitePieceLeft1].style.visibility = "visible"; //2023 me here, I added the "leaderAlive" variable that way when the leader is taken the game doesn't end, the other pieces are just incredibly hindered
 			} //this is the top left corner of it's moving ability
 		}
 		if ((grid[whitePieceTop1][whitePieceLeft] == 0)||(grid[whitePieceTop1][whitePieceLeft] == 2)){ //this is straight in front of it
 			gridRow.children[whitePieceLeft].style.visibility = "visible";
 		}
 		if ((grid[whitePieceTop1][whitePieceLeft3] == 0)||(grid[whitePieceTop1][whitePieceLeft3] == 2)){ //thi is top right
-			if (whitePieceLeft3 < 8){
+			if ((whitePieceLeft3 < 8) && leaderAlive){
 				gridRow.children[whitePieceLeft3].style.visibility = "visible";
 			} 
 		}//easy? if you call 4 hours of thinking, rewriting, and testing on a phone split up over the course of a day easy, then yeah, it was pretty fucking basic lol
@@ -438,7 +488,7 @@ function playerPiece(piece, pieceName) { //FUCKING HELL this was annoying. but I
 					gridRow.children[wpt-1].children[wpl-1].style.visibility = "visible";
 				//if we wanted the piece to NOT be able to jump over pieces, we would put the if statement below right here and so on for all the other. spent a good minute thinking about this while eating too much ice cream
 				}
-				if ((wpt-2>=0)&&(wpl-2>=0)) {
+				if ((wpt-2>=0)&&(wpl-2>=0)&&leaderAlive) { //added the "leaderAlive" var here too
 					if ((grid[wpt - 2][wpl - 2] == 0) || (grid[wpt - 2][wpl - 2] == 2)) {
 						gridRow.children[wpt-2].children[wpl-2].style.visibility = "visible";
 					}
@@ -454,7 +504,7 @@ function playerPiece(piece, pieceName) { //FUCKING HELL this was annoying. but I
 				if ((grid[wpt - 1][wpl + 1] == 0) || (grid[wpt - 1][wpl + 1] == 2)) {
 					gridRow.children[wpt-1].children[wpl+1].style.visibility = "visible";
 				}
-				if ((wpt-2>=0)&&(wpl+2<=6)) {
+				if ((wpt-2>=0)&&(wpl+2<=6)&&leaderAlive) {
 					if ((grid[wpt - 2][wpl + 2] == 0) || (grid[wpt - 2][wpl + 2] == 2)) {
 						gridRow.children[wpt-2].children[wpl+2].style.visibility = "visible";
 					}
@@ -470,7 +520,7 @@ function playerPiece(piece, pieceName) { //FUCKING HELL this was annoying. but I
 				if ((grid[wpt + 1][wpl + 1] == 0) || (grid[wpt + 1][wpl + 1] == 2)) {
 					gridRow.children[wpt+1].children[wpl+1].style.visibility = "visible";
 				}
-				if ((wpt+2<=7)&&(wpl+2<=6)) {
+				if ((wpt+2<=7)&&(wpl+2<=6)&&leaderAlive) {
 					if ((grid[wpt + 2][wpl + 2] == 0) || (grid[wpt + 2][wpl + 2] == 2)) {
 						gridRow.children[wpt+2].children[wpl+2].style.visibility = "visible";
 					}
@@ -486,7 +536,7 @@ function playerPiece(piece, pieceName) { //FUCKING HELL this was annoying. but I
 				if ((grid[wpt + 1][wpl - 1] == 0) || (grid[wpt + 1][wpl - 1] == 2)) {
 					gridRow.children[wpt+1].children[wpl-1].style.visibility = "visible";
 				}
-				if ((wpt+2<=7)&&(wpl-2>=0)) {
+				if ((wpt+2<=7)&&(wpl-2>=0)&&leaderAlive) {
 					if ((grid[wpt + 2][wpl - 2] == 0) || (grid[wpt + 2][wpl - 2] == 2)) {
 						gridRow.children[wpt+2].children[wpl-2].style.visibility = "visible";
 					}
@@ -557,15 +607,7 @@ function playerPiece(piece, pieceName) { //FUCKING HELL this was annoying. but I
 			return 0;
 		}
 	}//save this `if else` for later
-	/*if (difficulty == 0) {
-		if (mappistMove == true) {
-			mappistMove = false;
-			//function to do playerMove again
-		}else if (mappistMove == false){
-			mappistMove = true;
-			//continue with opposing move
-		}
-	}*/
+	//you mean **now**
 	pieceClicked(pieceName, whitePieceTop, whitePieceLeft); //this is needed for some reason to get pieceName global so playerMove() can use it lol
 }
 
@@ -587,15 +629,18 @@ function playerMove(row, col) { //thiz was easier than I thought it was going to
 		if (grid[rowSet][colSet] == 2) { //and then we check to see if we got any pieces!
 			var rowTop = rowSet * 60 + 5; //we get the top... (because that's all we need)
 			for (i = 0; i < opposingTop.length ; i++) { //and ruffle through all the opposing pieces...
-				if ((rowTop == document.getElementById("opposingpieces").children[i].getBoundingClientRect().top)&&(oneTaken === false)){ //found a match?
+				if ((rowTop == document.getElementById("opposingpieces").children[i].getBoundingClientRect().top)&&(oneTaken === false)&&(opMove[i]===1)){ //found a match?
 					document.getElementById("opposingpieces").children[i].style.opacity = "0"; //hide it
 					document.getElementById("opposingpieces").children[i].style.top = "5px"; //and set it back to the beginning  
 					document.getElementById("opposingpieces").children[i].style.left = (i * 60 + 75) + "px";
 					opposingTop[i] = 5; //set the top back to 5
 					opMove[i] = 0; //and set it to 0 so it will not added to keep moving
 					++taken; //and then of course add the score
+					rowTaken = rowTaken + (8 - rowSet);
 					console.log("times");
 					document.getElementById("taken").innerHTML = taken;
+					score += (8 - rowSet) * 10; 
+					scoreKeeper(); //not showing the score until the end is silly lol
 					oneTaken = true;
 					if (firstTaken == false){ //prety self explanatory 
 						firstTaken = true;
@@ -618,7 +663,17 @@ function playerMove(row, col) { //thiz was easier than I thought it was going to
 			firstMove = false; //and then to start the timer, which works perfectly :)
 			timerVar = setInterval(timer, 100);
 		}
-		opposingMove();
+		if (difficulty == 0) {
+			if (mappistMove == true) {
+				mappistMove = false; //go again
+				//b y   d o i n g   n o t h i n g
+			}else if (mappistMove == false){
+				mappistMove = true;
+				opposingMove(); //continue with opposing move
+			}
+		}else{
+			opposingMove(); //almost made relative obselete lmao
+		}
 	} //it is currently 11:56pm, my computer is at 15% and I don't have a charger, I have band camp at 7:50am tomorrow, but I am the happiest person in the world because I pretty much just finished v0.1 of the game (excluding cleaning up the code). YAYY
 }
 
@@ -688,10 +743,12 @@ function opposingMove(){ //this function wasn't that bad (as long as you knew wh
 	console.log(grid[0][lastRoll]);
 	powerBarControler();
 	//and then we print the board! how nice
-	console.log("move----------");
+	console.log(opposingTop);
+	console.log(opMove);
 	for(i4 = 0; i4 < 8; i4++){
 		console.log(grid[i4]);
 	}
+	console.log("move----------");
 }
 
 function powerBarControler() { //this is control the ***********************useless*********************** bar on the left side (to be fair, it's usefull in multiplayer)
@@ -727,24 +784,30 @@ function opPieceGrid() { //so I made it a function and placed right after the pl
 			//we get its row
 			var opTop1 = opTop - 1;
 			//we subtract 1 to erase where it
-			if(opTop == 8) { //if it's the king we end the game
+			if(opTop == 8) { //if it's the king we end the game - jk! we change a variable
 				document.getElementById("opposingpieces").children[i].style.top = "425px";
-				endGame();
+				endGame(); //I'm actually not sure what this if statement does... I'm just gonna leave it be
 			}
+			console.log(whiteMoving);
 			if ((opTop == whiteMoving[0])&&(opLeft == whiteMoving[1])) { //and if the a white piece JUST MOVED THERE FR NO REASON, theeeeeen we use the whiteMoving[] to say it just moved there because the board hasn't updated yet
 				if (whiteMoving[2] == "whiteleader") { //if it's the leader, we end the game
 					document.getElementById(whiteMoving[2]).style.display = "none";
-					endGame();
+					leaderAlive = false;
+					//endGame();
 				}
 				document.getElementById(whiteMoving[2]).style.display = "none";
 			}
 			if (grid[opTop][opLeft] == 1) { //we see if a white piece is already there
 				var rowTop = opTop * 60 + 5; //and we convert the coordinates to pixels
 				var rowLeft = opLeft * 60 + 75;
-				for (i1 = 0; i1 < 9 ; i1++){ //we check all the white pieces to see which white piece is in that spot
+				for (i1 = 0; i1 < 10 ; i1++){ //we check all the white pieces to see which white piece is in that spot
+					//this number ^ right there was a 9, which is why the far right helper disapear after it was taken
+					//after 2 years
+					//i have fixed it
 					if ((rowTop == document.getElementById("boardpieces").children[i1].getBoundingClientRect().top) && (rowLeft == document.getElementById("boardpieces").children[i1].getBoundingClientRect().left)){
 						if(i1 == 8) { //**if it's the king we end the game**
-							endGame(); //no duh
+							leaderAlive = false;
+							//endGame(); //no duh
 						}
 						document.getElementById("boardpieces").children[i1].style.display = "none"; //and then we make the piece we found disapear
 						if (firstTaken == false){
@@ -765,20 +828,37 @@ function opPieceGrid() { //so I made it a function and placed right after the pl
 			continue;
 		}
 	}
+	console.log(grid);
 }
 
 function endGame() { //looks like you lost the game, now - WAIT - I LOST THE GAAME! 
+	youvefinishedthegamesocongrats = true;
 	clearInterval(timerVar); //we stop the timer
 	endTime = document.getElementById("time").innerHTML;
 	timeKeep = setInterval(timeKeeper, 10);
-	scoreCalc = parseInt(document.getElementById("taken").innerHTML);
+	//scoreCalc = parseInt(document.getElementById("taken").innerHTML);
 	if (difficulty == 0) { //and calculate the score based on the difficulty
 		score = scoreCalc * 0;
 	} else if (difficulty == 1) {
-		score = scoreCalc * 100;
+		score = rowTaken * 10;
 	} else if (difficulty == 2) {
-		score = scoreCalc * 150;
+		score = rowTaken * 15;
 		//will make score calculation for creator level more percise
+	}
+		
+	rowAverage = rowTaken/taken; //and now for a fun bonus, we make the power on the side the average!
+	powerBar = ((8 - rowAverage) - 0.5) * 60;
+	if (powerBar <= 360){ 
+		document.getElementById("blackpowerbar").style.height = powerBar + "px";
+	}
+	if (powerBar <= 360) {
+		document.getElementById("blackpowerbararrow").style.top = (powerBar +	4) + "px";
+	}
+	if (powerBar >= 60) {
+		document.getElementById("whitepowerbar").style.height = (362 - powerBar) + "px";
+	}
+	if ((powerBar >= 60)&&(powerBar <= 360)) {
+		document.getElementById("whitepowerbararrow").style.top = (powerBar + 64) + "px";
 	}
 	document.getElementById("usernamewatermark").style.transitionDuration = "2s";
 	document.getElementById("usernamewatermark").style.opacity = "0.6";
@@ -786,6 +866,31 @@ function endGame() { //looks like you lost the game, now - WAIT - I LOST THE GAA
 	scoreKeep = setInterval(scoreKeeper, 10);
 	document.getElementById("movinggrid").style.zIndex = "5"; //and make the board unmoveable because you lost
 	document.getElementById("movinggrid").style.display = "inline-block";
+	
+	if((score >= 900)&&(score < 1500)){ //did a little tier system that gives different color highlights based on the score you get!
+		document.getElementById("score").style.textShadow = "0 0 4px #d78456";
+	} else if((score >= 1500)&&(score < 2000)){
+		document.getElementById("score").style.textShadow = "0 0 4px #ffd700";
+	} else if(score >= 2000){
+		document.getElementById("score").style.textShadow = "0 0 4px #00ffff";
+	}
+	
+	if(score > highscore){
+		highscore = score;
+		localStorage.setItem("highscore", score);
+		document.getElementById("highscore").innerHTML = score;
+	}
+
+	if((highscore >= 900)&&(highscore < 1500)){ 
+		document.getElementById("highscore").style.textShadow = "0 0 4px #d78456";
+	} else if((highscore >= 1500)&&(highscore < 2000)){
+		document.getElementById("highscore").style.textShadow = "0 0 4px #ffd700";
+	} else if(highscore >= 2000){
+		document.getElementById("highscore").style.textShadow = "0 0 4px #00ffff";
+	}
+	
+	document.getElementById("difficultysubmit").value = "Again!";
+	document.getElementById("difficultysubmit").disabled = false;
 }
 
 function timeKeeper() {
