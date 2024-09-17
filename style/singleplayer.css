@@ -82,12 +82,22 @@ a {
 	background-color: #ffdbbb;
 	height: 60px;
 	width: 60px;
+	color: black;
+	/*font-family: Viper;
+	font-size: 16px;*/
+	line-height: 60px;
+	text-align: center;
 }
 
 .blacksquare {
 	background-color: #866552;
 	height: 60px;
 	width: 60px;
+	color: white;
+	/*font-family: Viper;
+	font-size: 16px;*/
+	line-height: 60px;
+	text-align: center;
 }
 
 .row1 {
@@ -174,7 +184,6 @@ a {
 	text-align: right;
 }
 
-
 #timebox {
 	margin: 17px 10px 10px 10px;
 	padding: 6px 4px 4px 8px;
@@ -191,17 +200,44 @@ a {
 	text-align: right;
 }
 
+/*
 #scorebox {
 	margin: 17px 10px 10px 10px;
 	text-align: center;
 	padding: 10px;
 	border: inset 4px gray;
 }
+*/
+
+#scorebox {
+	margin: 17px 10px 10px 10px;
+	padding: 6px 4px 4px 8px;
+	border: inset 4px gray;
+}
 
 #score {
-	padding-top: 10.5px;
+	position: absolute;
+	top: 170.5px;
+	left: 90px;
 	font-family: Consolas;
 	font-size: 18px;
+	width: 90px;
+	text-align: right;
+}
+#hiscrbox {
+	margin: 17px 10px 10px 10px;
+	padding: 6px 4px 4px 8px;
+	border: inset 4px gray;
+}
+
+#highscore {
+	position: absolute;
+	top: 228.5px;
+	left: 90px;
+	font-family: Consolas;
+	font-size: 18px;
+	width: 90px;
+	text-align: right;
 }
 
 .pieces {
