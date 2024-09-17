@@ -10,20 +10,25 @@
 	</head>
 	<body>
 		<img id="backgroundfavicon" src="images/favicon.png">
-		<div id="jsdisabled"></div>
-		<div id="title"><span class="titlecapital">P</span>ower<span  class="titlecapital">S</span>et&nbsp;<a id="hiddentitle" href="index.html"><span class="titlecapital">M</span>ultiplayer&nbsp;</a><span id="single-version">v0.2</span></div>
+		<div id="title"><span class="titlecapital">P</span>ower<span  class="titlecapital">S</span>et&nbsp;<a id="hiddentitle" href="index.html"><span class="titlecapital">M</span>ultiplayer&nbsp;</a><span id="single-version">v0.4</span></div>
 		<div id="titleline"></div>
 		<div id="optionsbar">
 			<a href="https://github.com/PercyCho/powerset/blob/master/PowerSet-Guide/README.md" target="_blank"><div id="guidelink" class="optionsbutton">How to<br>Play</div></a>
 			<a href="#" target="_blank"><div id="leaderboardlink" class="optionsbutton">Leader<br>Board</div></a>
 			<a href="index-singleplayer.html"><div class="optionsbutton">Game</div></a>
-			<a href="http://percycho.github.io/bbho" target="_blank"><div id="websitelink" class="optionsbutton">My<br>Website</div></a>
+			<a href="http://percycho.github.io/bho" target="_blank"><div id="websitelink" class="optionsbutton">My<br>Website</div></a>
 			<a href="https://www.discord.gg/JdwYxAz" target="_blank"><div id="discordlink" class="optionsbutton">Discord</div></a>
 			<a href="http://petris.herokuapp.com/" target="_blank"><div id="petrislink" class="optionsbutton">Petris</div></a>
 			<div id="bgchanger" onclick="darkMode()" class="optionsbutton">Dark Mode</div>
 		</div>
 		<div id="safariwarningmessage">Because you are using Safai, some elements on the site or the game might not load correctly. Use Chrome for all elements to load correctly. <span id="hidewarningmessage" onclick="hideWarningMessage()">Hide</span></div>
 		<div id="changelog">
+			<div class="changelogupdate"><b>v0.4 - June 20 2023</b><br>What? ANOTHER Powerset update??? Yup! I was playing it the other day and noticed the weird bug where you couldn't always take opposing pieces in the top row, so I found what was causing it and fixed it! (Also, wow is my old code messy.) Moved the powerbar numbers to the middle so they don't look so lazy, added a "Highscore" feature, made a color benchmark system based on how high your score is (Copper (900), Gold (1500), and Platnium (2000), Silver wasn't very visible so I didn't include it). Might add some more small stuff later!
+			</div>
+			<div class="changelogupdate"><b>v0.3.1 - November 21 2021</b><br>Just some mini-updates I made since May, one of them being the point system! Now, instead of each opposing pawn being worth 100 points or so - I forgot how many lol - each pawn is now worth more the farther away from your side you take it. For example, if you take a pawn right after it reaches your side, it will only be worth 10 points, but if you take it right when it comes out on the board, it's worth 70 points. You can see the numbers for each row on the Power Bar. Now, after the game ends, the powerbar will adjust to the mean (average) number of points you recieved for each piece taken, the higher the powerbar is, the more pieces you took from the opposing side of the board. One more small change is a shadow around the game window, which is subtly darker in light mode, and glows in dark mode. 
+			</div>
+			<div class="changelogupdate"><b>v0.3 - May 23 2021</b><br>What? A Powerset update? Indeed. I finally took the courage to dive into every programmers fear - their old code. And luckily, I was able to find the reason to why the right most helper sometimes didn't disapear when it was taken (the list which counted for which pieces were taken was one number short) Any changes? An easy one, actually - the addition of the Mappist difficulty! It's super easy and gives a frustrated player something to do while they aggravate over why they can't get over the score 3000. This game feels so long ago, but it hasn't even been 2 years since I last touched it, so maybe time isn't going by as quick as I think it is :)
+			</div>
 			<div class="changelogupdate"><b>v0.2 - August 25 2019</b><br>The ability to change your color and have settings save on reload has been added! The black helpers move to the right because the mirror the white side and are supposed to be on the other side of the board. Update to have your username watermarked to the board so people don't steal your footage or screenshot will be next!
 			</div>
 			<div id="changelogupdate"><b>v0.1 - August 18 2019</b><br>The game has been made! The singleplayer version only includes the Relative difficulty, but the Mappist difficulty will come soon! The option of the piece speed has been added, and the option of color will likey be added next update.
