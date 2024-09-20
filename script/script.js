@@ -10,8 +10,7 @@ function sleep(milliseconds) {
 
 document.getElementById("jsdisabled").style.display = "none";
 
-//document.getElementById("single-error").style.display = "none";
-//but why
+document.getElementById("single-error").style.display = "none";
 
 if (navigator.appVersion.indexOf("Win")!=-1) {
 	document.getElementById("title").style.marginBottom = "-2px";
