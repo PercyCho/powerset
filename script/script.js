@@ -8,6 +8,8 @@ function sleep(milliseconds) {
 	}
 }
 
+document.getElementById("jsdisabled").style.display = "none";
+
 document.getElementById("single-error").style.display = "none";
 
 if (navigator.appVersion.indexOf("Win")!=-1) {
